@@ -22,7 +22,6 @@ router.get("/logout" , userController.logoutLogic)
 
 router.post("/checkout" ,isLoggedIn ,  (req ,res)=>{
     obj = req.body
-    console.log(obj)
     res.render("custom/pages/checkout.ejs" , obj)
 })
 
@@ -68,42 +67,43 @@ router.post("/checkout" ,isLoggedIn ,  (req ,res)=>{
 
 
 
-// Route to create a Stripe Checkout session (only handles payment UI)
+// Route to create a Stripe Checkout session
 router.post("/create-checkout-session", async (req, res) => {
-    const { data, user, fname, lname, email, address, city, state, zipcode, notes } = req.body;
-    const parsedData = JSON.parse(data);
-  
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      mode: "payment",
-      line_items: Object.entries(parsedData.product).map(([name, [qty, price]]) => ({
-        price_data: {
-          currency: "inr",
-          product_data: { name },
-          unit_amount: price * 100, // amount in paisa
-        },
-        quantity: qty,
-      })),
-      success_url: `http://localhost:8080/user/payment-success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `http://localhost:8080/user/checkout`,
-      
-      // Only passing metadata (used internally after payment)
-      metadata: {
-        user,
-        data,
-        fname,
-        lname,
-        email,
-        address,
-        city,
-        state,
-        zipcode,
-        notes,
-      }
-    });
-  
-    res.json({ id: session.id });
+  const { data, user, fname, lname, email, address, city, state, zipcode, notes, locality } = req.body;
+  const parsedData = JSON.parse(data);
+
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    mode: "payment",
+    line_items: Object.entries(parsedData.product).map(([name, [qty, price]]) => ({
+      price_data: {
+        currency: "inr",
+        product_data: { name },
+        unit_amount: price * 100, // amount in paisa
+      },
+      quantity: qty,
+    })),
+    success_url: `http://localhost:8080/user/payment-success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `http://localhost:8080/user/checkout`,
+    
+    metadata: {
+      user,
+      data,
+      fname,
+      lname,
+      email,
+      address,
+      city,
+      state,
+      zipcode,
+      notes,
+      locality
+    }
   });
+
+  res.json({ id: session.id });
+});
+
   
   router.get("/payment-success", async (req, res) => {
     const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
@@ -163,6 +163,36 @@ router.get("/thankyou",(req,res)=>{
 
 
 
+
+router.get('/my-orders', isLoggedIn, async (req, res) => {
+  try {
+    const filter = { user: req.session.user._id};
+    if (req.query.status) filter.status = req.query.status;
+
+    const orders = await Order.find(filter)
+      .populate('electrician', 'first_name last_name email phone')
+      .sort({ createdAt: -1 });
+      res.render("custom/pages/order.ejs" ,{orders});
+  } catch (err) {
+    res.status(401).send(err);
+    console.log(err)
+  }
+});
+
+// Cancel Order (Pending only)
+router.post('/my-orders/:id/cancel', isLoggedIn, async (req, res) => {
+  try {
+    const order = await Order.findOne({ _id: req.params.id, user: req.session.user._id });
+    if (!order || order.status !== 'Pending') {
+      return res.status(400).send('Cannot cancel this order');
+    }
+    order.status = 'Cancelled';
+    await order.save();
+    res.redirect('/user/my-orders');
+  } catch (err) {
+    res.status(500).send('Something went wrong');
+  }
+});
 
 
 

@@ -10,6 +10,7 @@ const dotenv = require('dotenv');
 const methodOverride = require('method-override');
 const userRoutes = require('./routes/custom.routes/user.routes.js')
 const adminRoute = require('./routes/Admin.routes/admin.routes.js')
+const electricianRoute = require('./routes/Electrician.routes/electrician.route.js')
 
 dotenv.config();
 const PORT = process.env.PORT || 5000
@@ -57,6 +58,7 @@ app.get("/" , (req ,res)=>{
 });
 app.use("/user" , userRoutes);
 app.use("/admin" , adminRoute);
+app.use('/electrician', electricianRoute);
 
 app.all("*", (req, res, next) => {
   res.render("custom/pages/pageNotFoun.ejs")
