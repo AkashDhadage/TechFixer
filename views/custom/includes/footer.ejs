@@ -9,10 +9,10 @@
           
         <ul>
           <li class="link-name"><a  href="home.html" class="link-name">Our Compney</a></li>
-            <li><a  href="home.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="service.html">Service</a></li>
-            <li><a href="blog.html">Contact</a></li>
+            <li><a  href="/user/">Home</a></li>
+            <li><a href="/user/about">About</a></li>
+            <li><a href="/user/service">Service</a></li>
+            <li><a href="/user/contact">Contact</a></li>
             
         </ul> 
       </div>   
@@ -20,10 +20,10 @@
           
         <ul>
           <li class="link-name"><a  href="home.html" class="link-name">Our Services</a></li>
-            <li><a  href="home.html">Fan Reparing</a></li>
-            <li><a href="about.html">light Reparing</a></li>
-            <li><a href="service.html">Switch Reparing</a></li>
-            <li><a href="blog.html">Msb Reparing</a></li>
+            <li><a  href="/user/service">Fan Reparing</a></li>
+            <li><a href="/user/service">light Reparing</a></li>
+            <li><a href="/user/service">Switch Reparing</a></li>
+            <li><a href="/user/service">Msb Reparing</a></li>
             
         </ul> 
       </div>   
@@ -39,11 +39,13 @@
           </ul> 
         </div>  
         
-        <div class="box" id="subscribe">
-          <h2>Subscribe Us</h2>
+        <div class="box mt-5"  id="subscribe">
+          <!-- <h2>Subscribe Us</h2> -->
           <hr>
-          <input type="text" placeholder="Enter your Email">  
-          <button>Subscribe</button>   
+          <!-- <input type="text" placeholder="Enter your Email">   -->
+          <a href="/electrician/login" target="_blank"><button>Be a Electrician</button>   </a>
+          <a href="/admin/login" target="_blank"><button>Admin</button>   </a>
+
           <div class="all-icon">
             <a href="https://www.google.com" target="_blank" aria-label="Google" id="google" class="font-footer">
               <i class="fa-brands fa-google"></i>
@@ -65,3 +67,33 @@
                 
     </div>    
   </footer>   
+
+  <script>
+    let subMenu = document.getElementById("subMenu");
+    function toggkemenu() {
+      subMenu.classList.toggle("open-menu");
+    }
+    function toggleProducts() {
+      let productList = document.getElementById("productList");
+      if (productList.style.display === "none" || productList.style.display === "") {
+          productList.style.display = "block";
+      } else {
+          productList.style.display = "none";
+      }
+  }
+  
+  function toggleProducts() {
+    let productList = document.getElementById("productList");
+    productList.classList.toggle("show");
+}
+
+document.querySelector(".view-more").addEventListener("click", function() {
+  document.querySelector(".popup").style.display = "block";
+  document.querySelector(".popup-overlay").style.display = "block";
+});
+document.querySelector(".close-icon").addEventListener("click", function() {
+  document.querySelector(".popup").style.display = "none";
+  document.querySelector(".popup-overlay").style.display = "none";
+});
+
+  </script>

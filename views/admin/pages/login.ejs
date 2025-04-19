@@ -11,30 +11,40 @@
         <link href="/css/styles.css" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+        <style>
+          .glass-card {
+    background: rgba(220, 219, 219, 0); /* semi-transparent white */
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* for Safari support */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+        </style>
     </head>
     <body class="">
-        <section class="vh-100 bg-light">
-            <div class="container py-5 h-100">
+      <section class="vh-100" style="background: url('/images/log.jpg') no-repeat center center; background-size: cover;">
+
+            <div class="container py-5 h-100 ">
               <div class="row d-flex align-items-center justify-content-center h-100">
-                <div class="col-md-8 col-lg-7 col-xl-6">
-                  <img src="/images/login_image.jpg`"
-                    class="img-fluid" alt="Phone image">
-                </div>
-                <div class="col-md-5 col-lg-4 col-xl-5 p-5 shadow">
+               
+                <div class="col-md-5 col-lg-5 col-xl-5 offset-7 p-5 glass-card  shadow">
                     <form method="post" action="/admin/login">
-                    <h1 class="text-center text-primary">Login Admin</h1>
+                    <h1 class="text-center text-light">Login Admin</h1>
                     <hr>
                     <!-- Email input -->
 
                     <div data-mdb-input-init class="form-outline mb-4 col-md-10 offset-1">
-                      <label class="form-label" for="form1Example13">Email address</label>
+                      <label class="form-label text-light" for="form1Example13">Email address</label>
 
                       <input type="text" id="form1Example13" class="form-control form-control-lg" name="username"/>
                     </div>
           
                     <!-- Password input -->
                     <div data-mdb-input-init class="form-outline mb-4 col-md-10 offset-1">
-                      <label class="form-label" for="form1Example23">Password</label>
+                      <label class="form-label text-light" for="form1Example23">Password</label>
 
                         <input type="password" id="form1Example23" class="form-control form-control-lg" name="password"/>
 
@@ -50,7 +60,7 @@
                     </div>
           
                     <!-- Submit button -->
-                    <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block offset-5">Sign in</button>
+                    <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary text-center btn-lg btn-block offset-4">Sign in</button>
           
                   </form>
                 </div>

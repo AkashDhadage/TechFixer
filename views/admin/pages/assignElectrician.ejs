@@ -55,7 +55,8 @@
         <td class="badge bg-success"><%= order.payment_status %></td>
 
         <td>
-          <form action="/admin/assignElectrician" method="POST" id="assign">
+          <form action="/admin/assignElectrician" method="POST" id="assign-<%= index %>">
+
             <input type="hidden" name="orderId" value="<%= order._id %>">
             <select name="electricianId" required>
               <option selected disabled value="">Select Electrician</option>
@@ -67,7 +68,8 @@
           </form>
         </td>
         <td>
-          <button type="submit" class="btn btn-outline-success" form="assign">Assign</button>
+          <button type="submit" class="btn btn-outline-success" form="assign-<%= index %>">Assign</button>
+
 
         </td>
       </tr>

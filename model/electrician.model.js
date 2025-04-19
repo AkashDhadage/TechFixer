@@ -4,13 +4,13 @@ const schema = mongoose.Schema({
     first_name:{
         type: String,
         required: [true, 'Please enter username'],
-        minLength: [2, 'Username must be more than 4 characters'],
+        minLength: [2, 'Username must be more than 2 characters'],
         maxLength: [20, 'Username must be less than 20 characters'],
     },
     last_name:{
         type: String,
         required: [true, 'Please enter username'],
-        minLength: [2, 'Username must be more than 4 characters'],
+        minLength: [2, 'Username must be more than 2 characters'],
         maxLength: [20, 'Username must be less than 20 characters'],
     },
       email: {
@@ -18,8 +18,7 @@ const schema = mongoose.Schema({
             required: [true, 'Please enter an email'],
             unique: [true, 'Email already exist '],
             lowercase: true,
-            minLength: [11, 'Email must be more than 11 characters'],
-            maxLength: [26, 'Email must be less than 26 characters'],
+            minLength: [5, 'Email must be more than 5 characters'],
         }, 
 
         address:{
@@ -30,7 +29,6 @@ const schema = mongoose.Schema({
             type: String,
             required: [true, 'Please enter password'],
             minLength: [6, 'Minimum password length is 6 characters'],
-            maxLength: [20, 'Maximum password length is 20 characters'],
         },
    
    

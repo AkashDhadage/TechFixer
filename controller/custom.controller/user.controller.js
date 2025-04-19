@@ -67,18 +67,22 @@ exports.loginLogic = async (req,res)=>{
     }
 };
 
+// exports.logoutLogic = (req,res)=>{
+//     req.flash('success','Logged Out');
+//   req.session.destroy((err) => {
+//     if (err) {
+//       return res.redirect('/error'); // Handle error appropriately
+//     }
+//     res.clearCookie('connect.sid'); // Clears the session cookie
+//     res.redirect('/user/login'); // Redirect to the login page or another appropriate route
+//   });
+// }
+
+
 exports.logoutLogic = (req,res)=>{
     req.flash('success','Logged Out');
-
-  req.session.destroy((err) => {
-    if (err) {
-      return res.redirect('/error'); // Handle error appropriately
-    }
-  
-    res.clearCookie('connect.sid'); // Clears the session cookie
-  
+    req.session.user = undefined;
     res.redirect('/user/login'); // Redirect to the login page or another appropriate route
-  });
 
-  
+
 }

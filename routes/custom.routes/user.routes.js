@@ -25,45 +25,6 @@ router.post("/checkout" ,isLoggedIn ,  (req ,res)=>{
     res.render("custom/pages/checkout.ejs" , obj)
 })
 
-// router.post("/orderConfirmation" ,async (req , res)=>{
-//     obj = req.body;
-
-// // assume this is req.body from the form
-// const { data,  user,  fname,  lname,  email,  address,  city,  state,  zipcode,  notes} = req.body;
-
-// const parsedData = JSON.parse(data); // now we have product list and totals
-// const productList = [];
-
-// for (const [name, [quantity, price]] of Object.entries(parsedData.product)) {
-//   productList.push({
-//     name,
-//     quantity,
-//     price
-//   });
-// }
-
-// // Create and save the order
-// const newOrder = new Order({
-//   user,
-//   products: productList,
-//   subtotal: parsedData.subtotal,
-//   total: parsedData.total,
-//   shippingAddress: {
-//     fname,
-//     lname,
-//     email,
-//     address,
-//     city,
-//     state,
-//     zipcode,
-//     notes
-//   },
-//   status: 'Pending'
-// });
-
-// await newOrder.save();
-// res.send("data saved successfully")
-// } )
 
 
 
@@ -152,6 +113,7 @@ router.post("/create-checkout-session", async (req, res) => {
     });
   
     await newOrder.save();
+    req.session.user.cart = [];
     res.redirect("/user/thankyou");
   });
   

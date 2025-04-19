@@ -55,11 +55,16 @@ exports.manageUser = async (req ,res)=>{
 } 
 
 
+
 exports.addElectrician = async (req ,res) =>{
     try {
         let {first_name ,last_name , phone ,address ,email ,password} =req.body ; 
-    const newElectrician = new Electrician({first_name ,last_name , phone ,address ,email ,password})
-    await newElectrician.save()
+        const hashedPassword = await bcrypt.hash(password ,10)
+          const newElectrician = new Electrician({first_name ,last_name , phone ,address ,email ,password:hashedPassword})
+              await newElectrician.save()
+
+
+        
     .then(() => {
          req.flash("success", "Electrician added Successfully") 
          res.redirect("/admin/manageElectrician")
